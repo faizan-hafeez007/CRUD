@@ -17,14 +17,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="tag" class="form-label">Tag</label>
-                    <input type="text" class="form-control @error('tag') is-invalid @enderror" name="tag"
-                        id="tag">
-                    @error('tag')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

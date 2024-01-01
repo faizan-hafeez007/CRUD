@@ -39,7 +39,6 @@
                             <tr>
                                 <th scope="row">1</th>
                                 <td>{{ $category->name }}</td>
-                                <td>{{ $category->tag }}</td>
                                 <td>
                                     <div class="d-flex flex-row bd-highlight">
                                         <a href="{{ url('category/edit', $category->id) }}">

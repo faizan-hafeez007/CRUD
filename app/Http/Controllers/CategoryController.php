@@ -20,11 +20,9 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'tag' => 'required',
         ]);
         $category = new Category();
         $category->name = $request->name;
-        $category->tag = $request->tag;
         $response = $category->save();
         if ($response == true) {
             return redirect('/category');
@@ -40,12 +38,10 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'tag' => 'required',
         ]);
         
         $category = Category::find($id);
         $category->name = $request->name;
-        $category->tag = $request->tag;
         $category->update();
 
         return redirect('/category');

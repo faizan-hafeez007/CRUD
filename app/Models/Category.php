@@ -10,6 +10,11 @@ class Category extends Model
     use HasFactory;
     protected $filable = [
         'name',
-        'tag',
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
+
+
