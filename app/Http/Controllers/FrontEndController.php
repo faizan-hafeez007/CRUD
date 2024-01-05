@@ -23,6 +23,18 @@ class FrontEndController extends Controller
         $products = Product::where('category_id', '=', $id)->get();
         return view('frontend.pages.products', get_defined_vars());
     }
+    public function search(Request $request)
+{
+    // Get the input value
+    $name = $request->input('name');
+
+    // Query the products table with the input value
+    $products = Product::where('name', 'like', '%' . $name . '%')->get();
+
+    // Return the view with the products
+    return view('frontend.pages.products', compact('products'));
+}
+
 
     /**
      * Write code on Method
