@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\ProductController;
+
 use Illuminate\Support\Facades\Route;
+
+require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -15,25 +20,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// frontend routes
+Route::get('/', [FrontEndController::class, 'index'])->name('products');
+Route::get('/filter/{id}', [FrontEndController::class, 'filters'])->name('products.filter');
+Route::get('cart', [FrontEndController::class, 'cart'])->name('cart');
+Route::get('add-to-cart/{id}', [FrontEndController::class, 'addToCart'])->name('add.to.cart');
+Route::patch('update-cart', [FrontEndController::class, 'update'])->name('update.cart');
+Route::delete('remove-from-cart', [FrontEndController::class, 'remove'])->name('remove.from.cart');
 
-//PRODUCT CONTROLLER
-Route::prefix('product')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::get('/create', [ProductController::class, 'create']);
-    Route::post('/store', [ProductController::class, 'store']);
-    Route::delete('/delete/{id}', [ProductController::class, 'delete']);
-    Route::get('/edit/{id}', [ProductController::class, 'edit']);
-    Route::put('/update/{id}', [ProductController::class, 'update']);
-});
-//CATEGORY CONTROLLER
-Route::prefix('category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/create', [CategoryController::class, 'create']);
-    Route::post('/store', [CategoryController::class, 'store']);
-    Route::delete('/delete/{id}', [CategoryController::class, 'delete']);
-    Route::get('/edit/{id}', [CategoryController::class, 'edit']);
-    Route::put('/update/{id}', [CategoryController::class, 'update']);
+// Admin  Routes
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('admin');
+    //PRODUCT CONTROLLER
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product');
+        Route::get('/create', [ProductController::class, 'create']);
+        Route::post('/store', [ProductController::class, 'store']);
+        Route::delete('/delete/{id}', [ProductController::class, 'delete']);
+        Route::get('/edit/{id}', [ProductController::class, 'edit']);
+        Route::put('/update/{id}', [ProductController::class, 'update']);
+    });
+    //CATEGORY CONTROLLER
+    Route::prefix('category')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('category');
+        Route::get('/create', [CategoryController::class, 'create']);
+        Route::post('/store', [CategoryController::class, 'store']);
+        Route::delete('/delete/{id}', [CategoryController::class, 'delete']);
+        Route::get('/edit/{id}', [CategoryController::class, 'edit']);
+        Route::put('/update/{id}', [CategoryController::class, 'update']);
+    });
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

@@ -25,9 +25,9 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $response = $category->save();
         if ($response == true) {
-            return redirect('/category');
+            return redirect('/admin/category');
         }
-        return redirect('/category/create');
+        return redirect('/admin/category/create');
     }
     public function edit($id)
     {
@@ -44,12 +44,12 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->update();
 
-        return redirect('/category');
+        return redirect('/admin/category');
     }
     public function delete($id)
     {
         $category = Category::find($id);
         $category->delete();
-        return redirect('/category');
+        return redirect('/admin/category');
     }
 }

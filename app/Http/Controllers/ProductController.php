@@ -10,8 +10,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::with('category')->get();
-        $products = Product::paginate(3);
+        $products = Product::with('category')->orderByDesc('name')->paginate(5);
+        // dd($products);
+        // $products = Product::orderBy('created_at', 'desc')->paginate(4);
         return view('products.index', get_defined_vars());
     }
 
@@ -19,7 +20,7 @@ class ProductController extends Controller
     public function create()
     {
         $category = Category::all();
-        return view('products.create' , get_defined_vars());
+        return view('products.create', get_defined_vars());
     }
     public function store(Request $request)
     {
@@ -33,20 +34,20 @@ class ProductController extends Controller
         // dd($request->all());
 
         $image = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('products'), $image);
+        $request->image->storeAs('products', $image, 'public');
 
         $product = new Product;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
-        $product->category_id=$request->category_id;
+        $product->category_id = $request->category_id;
         $product->image = $image;
         $product->description = $request->description;
         $response = $product->save();
         if ($response == true) {
-            return redirect('/product')->with('success', 'Form data submitted successfully!');
+            return redirect('/admin/product')->with('success', 'Form data submitted successfully!');
         }
-        return redirect('products/create');
+        return redirect('/admin/products/create');
     }
 
     public function delete($id)
@@ -55,7 +56,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->delete();
 
-        return redirect('/product');
+        return redirect('/admin/product');
     }
 
     public function edit($id)
@@ -84,9 +85,58 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->quantity = $request->quantity;
-        $product->category_id=$request->category_id;
+        $product->category_id = $request->category_id;
         $product->description = $request->description;
         $product->update();
-        return redirect('/product')->with('success', 'Form data Updated successfully!');
+        return redirect('/admin/product')->with('success', 'Form data Updated successfully!');
+    }
+    public function product_show()
+    {
+        $products = Product::all();
+        return view('frontend.index', get_defined_vars());
+    }
+    public function cart()
+    {
+        return view('cart');
+    }
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
+
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+    public function update_cart(Request $request)
+    {
+        if ($request->id && $request->quantity) {
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
+    }
+    public function remove(Request $request)
+    {
+        if ($request->id) {
+            $cart = session()->get('cart');
+            if (isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
     }
 }
