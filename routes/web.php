@@ -23,6 +23,7 @@ require __DIR__ . '/auth.php';
 // frontend routes
 Route::get('/', [FrontEndController::class, 'index'])->name('products');
 Route::get('/filter/{id}', [FrontEndController::class, 'filters'])->name('products.filter');
+Route::get('/search', [FrontEndController::class, 'search'])->name('products.search');
 Route::get('cart', [FrontEndController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [FrontEndController::class, 'addToCart'])->name('add.to.cart');
 Route::patch('update-cart', [FrontEndController::class, 'update'])->name('update.cart');

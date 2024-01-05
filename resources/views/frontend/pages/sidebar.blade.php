@@ -1,11 +1,13 @@
 <div class="row">
-    <button>
+    <div class="btn-group">
         @foreach (getcategory() as $category)
-            <a href="{{ route('products.filter', $category->id) }}">
+            <a href="{{ route('products.filter', ['id' => $category->id]) }}" class="btn">
                 <ul class="list-unstyled">
-                    <li>{{ $category->name }}</li>
+                    <li class="btn border-t-neutral-900">
+                        {{ $category->name }}
+                    </li>
                 </ul>
             </a>
         @endforeach
-    </button>
+    </div>
 </div>
