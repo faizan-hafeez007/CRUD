@@ -14,16 +14,14 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('.btn-group a').click(function() {
+    $('.btn-group a').click(function() {
 
-            var categoryId = $(this).data('category');
-            storeCategory(categoryId);
-        });
+        var categoryId = $(this).data('category');
+        storeCategory(categoryId);
+    });
 
-        $('form').submit(function() {
-            $('#category').val(getSelectedCategory());
-        });
+    $('form').submit(function() {
+        $('#category').val(getSelectedCategory());
     });
     //store category
     function storeCategory(categoryId) {
