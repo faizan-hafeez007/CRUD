@@ -2,8 +2,8 @@
 <div class="row">
     <div class="btn-group">
         @foreach (getcategory() as $category)
-            <a href="{{ route('products.filter', ['id' => $category->id]) }}" class="btn"
-                data-category-id="{{ $category->id }}">
+            <a href="{{ route('products.filter', ['id' => $category->id]) }}"
+                class="btn list_category category_{{ $category->id }}" data-category="{{ $category->id }}">
                 <ul class="list-unstyled">
                     <li class="btn border-t-neutral-900 ">
                         {{ $category->name }}
@@ -17,8 +17,7 @@
     $(document).ready(function() {
         $('.btn-group a').click(function() {
 
-            var categoryId = $(this).data('category-id');
-            // var search_term =$("#search_term").val();
+            var categoryId = $(this).data('category');
             storeCategory(categoryId);
         });
 
@@ -34,4 +33,6 @@
     function getSelectedCategory() {
         return localStorage.getItem('selectedCategory');
     }
+    // Highlight the Selected Category
+    $(".category_" + getSelectedCategory()).addClass('active');
 </script>
