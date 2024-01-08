@@ -63,9 +63,10 @@
                     class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
             </button>
             <form class="form-inline my-2 my-lg-0 " action="{{ route('products.search') }}" method="GET">
-                 <input type="text" name="name" placeholder="Search products...">
+                <input type="text" id="search_term" name="name" placeholder="Search products...">
+                <input type="hidden" name="category" id="category" value="">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            </form>            
 
         </div>
     </nav>
@@ -79,6 +80,8 @@
         @yield('front-content')
     </div>
     @yield('scripts')
+
+    
 </body>
 
 </html>

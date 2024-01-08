@@ -21,19 +21,31 @@ class FrontEndController extends Controller
     public function filters($id)
     {
         $products = Product::where('category_id', '=', $id)->get();
+
         return view('frontend.pages.products', get_defined_vars());
     }
+    // public function search(Request $request)
+    // {
+    //     $name = $request->input('name');
+    //     $products = Product::where('name', 'like', '%' . $name . '%')->get();
+    //     return view('frontend.pages.products', compact('products'));
+    // }
     public function search(Request $request)
-{
-    // Get the input value
-    $name = $request->input('name');
+    {
+        $name = $request->input('name');
+        $selectedCategory = $request->input('category');
+        // dd($selectedCategory);
+        if (!$selectedCategory) {
+            $name = $request->input('name');
+            $products = Product::where('name', 'like', '%' . $name . '%')->get();
+            return view('frontend.pages.products', compact('products'));
+        }
+        $products = Product::where('name', 'like', '%' . $name . '%')
+            ->where('category_id', $selectedCategory)
+            ->get();
+        return view('frontend.pages.products', get_defined_vars());
+    }
 
-    // Query the products table with the input value
-    $products = Product::where('name', 'like', '%' . $name . '%')->get();
-
-    // Return the view with the products
-    return view('frontend.pages.products', compact('products'));
-}
 
 
     /**
