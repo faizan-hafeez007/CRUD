@@ -10,9 +10,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->orderByDesc('name')->paginate(5);
+        // $products = Product::with('category')->orderByDesc('name')->paginate(5);
         // dd($products);
-        // $products = Product::orderBy('created_at', 'desc')->paginate(4);
+        $products = Product::orderBy('created_at', 'desc')->paginate(4);
         return view('products.index', get_defined_vars());
     }
 
