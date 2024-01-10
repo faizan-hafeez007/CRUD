@@ -82,11 +82,10 @@
     </script>
 
     <script>
+        //disable the form submission to once at a time
         $('form').submit(function() {
             $(this).find(':submit').attr('disabled', 'disabled');
         });
-
-
 
         $(document).ready(function() {
             // Name validation

@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -26,8 +27,13 @@ Route::get('/filter/{id}', [FrontEndController::class, 'filters'])->name('produc
 Route::get('/search', [FrontEndController::class, 'search'])->name('products.search');
 Route::get('cart', [FrontEndController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [FrontEndController::class, 'addToCart'])->name('add.to.cart');
+Route::get('cart/checkout', [DetailController::class, 'index'])->name('checkout.page');
 Route::patch('update-cart', [FrontEndController::class, 'update'])->name('update.cart');
 Route::delete('remove-from-cart', [FrontEndController::class, 'remove'])->name('remove.from.cart');
+
+Route::get('stripe', [StripePaymentController::class, 'stripe']);
+Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
 
 // Admin  Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {

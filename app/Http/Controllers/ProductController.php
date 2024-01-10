@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     public function index()
@@ -139,4 +140,6 @@ class ProductController extends Controller
             session()->flash('success', 'Product removed successfully');
         }
     }
+    
+
 }
