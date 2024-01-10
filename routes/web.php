@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,8 @@ Route::delete('remove-from-cart', [FrontEndController::class, 'remove'])->name('
 Route::get('stripe', [StripePaymentController::class, 'stripe']);
 Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
-
+Route::get('/login/google', [SocialiteLoginController::class, 'redirectToProvider']);
+Route::get('/login/google/callback', [SocialiteLoginController::class, 'handleProviderCallback']);
 // Admin  Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
