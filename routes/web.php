@@ -30,7 +30,6 @@ Route::get('add-to-cart/{id}', [FrontEndController::class, 'addToCart'])->name('
 Route::get('cart/checkout', [DetailController::class, 'index'])->name('checkout.page');
 Route::patch('update-cart', [FrontEndController::class, 'update'])->name('update.cart');
 Route::delete('remove-from-cart', [FrontEndController::class, 'remove'])->name('remove.from.cart');
-
 Route::get('stripe', [StripePaymentController::class, 'stripe']);
 Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
@@ -41,6 +40,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('admin');
+    Route::get('/login/google', [FrontEndController::class, 'redirectToProvider']);
+Route::get('/login/google/callback', [FrontEndController::class, 'handleProviderCallback']);
     //PRODUCT CONTROLLER
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product');
