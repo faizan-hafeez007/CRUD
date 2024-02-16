@@ -17,7 +17,8 @@
             <input type="hidden" id="vehicleCount" value="{{ $vehicleCount }}">
             <table class="table" id="vehicleTable">
                 <thead>
-                    <tr><th>#</th>
+                    <tr>
+                        <th>#</th>
                         <th>REG</th>
                         <th>VALUE</th>
                         <th>Lender</th>
@@ -27,7 +28,8 @@
                 <tbody>
                     <tr>
                         <td><input type="text" class="form-control" name="reg[]" placeholder="Enter REG"></td>
-                        <td><input type="number" class="form-control" name="value[]" placeholder="Enter VALUE" min="1"></td>
+                        <td><input type="number" class="form-control" name="value[]" placeholder="Enter VALUE"
+                                min="1"></td>
                         <td><input type="text" class="form-control" name="lender[]" placeholder="Enter Lender"></td>
                         <td>
                             <input type="hidden" class="form-control" name="reg_id" value="{{ $reg_id }}" readonly>
