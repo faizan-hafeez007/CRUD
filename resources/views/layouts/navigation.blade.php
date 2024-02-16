@@ -21,7 +21,10 @@
                     <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
                         {{ __('Category') }}
                     </x-nav-link>
-                    
+                    <x-nav-link :href="route('car.reg')" :active="request()->routeIs('car.reg')">
+                        {{ __('Car Reg') }}
+                    </x-nav-link>
+
 
                 </div>
             </div>

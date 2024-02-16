@@ -9,12 +9,22 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // $products = Product::with('category')->orderByDesc('name')->paginate(5);
-        // dd($products);
-        $products = Product::orderBy('created_at', 'desc')->paginate(4);
-        return view('products.index', get_defined_vars());
+        $query = Product::orderBy('created_at', 'desc');
+        $searchTerm = $request->input('search');
+        if ($request->has('search')) {
+            $query->where(function ($subquery) use ($searchTerm) {
+                $subquery->where('name', 'like', "%{$searchTerm}%")
+                    ->orWhere('description', 'like', "%{$searchTerm}%")
+                    ->orWhereHas('category', function ($categoryQuery) use ($searchTerm) {
+                        $categoryQuery->where('name', 'like', "%{$searchTerm}%");
+                    });
+            });
+        };
+        $products = $query->paginate(4);
+        $products->appends(['search' => $searchTerm]);
+        return view('products.index', compact('products'));
     }
 
 
@@ -44,6 +54,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->image = $image;
         $product->description = $request->description;
+
         $response = $product->save();
         if ($response == true) {
             return redirect('/admin/product')->with('success', 'Form data submitted successfully!');
@@ -140,6 +151,4 @@ class ProductController extends Controller
             session()->flash('success', 'Product removed successfully');
         }
     }
-
-
 }

@@ -4,9 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\LenderController;
 use App\Http\Controllers\SocialiteLoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StripePaymentController;
+use App\Models\Lender;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -43,7 +45,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
         return view('dashboard');
     })->name('admin');
     Route::get('/login/google', [FrontEndController::class, 'redirectToProvider']);
-Route::get('/login/google/callback', [FrontEndController::class, 'handleProviderCallback']);
+    Route::get('/login/google/callback', [FrontEndController::class, 'handleProviderCallback']);
     //PRODUCT CONTROLLER
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product');
@@ -62,7 +64,19 @@ Route::get('/login/google/callback', [FrontEndController::class, 'handleProvider
         Route::get('/edit/{id}', [CategoryController::class, 'edit']);
         Route::put('/update/{id}', [CategoryController::class, 'update']);
     });
+    //CAR LENDER ROUTES
+    Route::get('/vehicle/create/{id}', [LenderController::class, 'create'])->name('car.lender');
+    Route::get('/car/show/{reg_id}', [LenderController::class, 'index'])->name('lender.show');
+    Route::post('/vehicle/store', [LenderController::class, 'store'])->name('car.store');
+    Route::post('/car/store', [LenderController::class, 'car'])->name('car.car');
+    Route::get('/car/thankYou', [LenderController::class, 'car_index']);
 
+    Route::get('/vehicle/reg', [LenderController::class, 'reg'])->name('car.reg');
+    Route::post('/vehicle/reg/store', [LenderController::class, 'reg_store']);
+    Route::get('/car/reg/{id}', [LenderController::class, 'reg_index'])->name('car.reg_index');
+
+
+    //DASHBOARD ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

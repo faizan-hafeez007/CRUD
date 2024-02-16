@@ -32,26 +32,6 @@
                         <input type="number" class="form-control " name="quantity" id="quantity" min="1"
                             value="{{ old('quantity') }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control " name="quantity" id="quantity" min="1"
-                            value="{{ old('quantity') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control " name="quantity" id="quantity" min="1"
-                            value="{{ old('quantity') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control " name="quantity" id="quantity" min="1"
-                            value="{{ old('quantity') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control " name="quantity" id="quantity" min="1"
-                            value="{{ old('quantity') }}">
-                    </div>
 
                     <div class="mb-3">
                         <label for="category_id" class="form-label">Category</label>
@@ -88,6 +68,18 @@
     <script>
         $(document).ready(function() {
             $("#myForm").validate({
+                submitHandler: function(form) {
+                    // Disable submit button to prevent multiple submissions
+                    $('#submitButton').prop('disabled', true);
+
+                    // Perform form submission
+                    form.submit();
+
+                    // Enable the submit button after a delay (e.g., 5 seconds)
+                    setTimeout(function() {
+                        $('#submitButton').prop('disabled', false);
+                    }, 3000); // Adjust the time delay as needed (in milliseconds)
+                },
                 focusInvalid: false,
                 invalidHandler: function(form, validator) {
                     if (!validator.numberOfInvalids())
@@ -127,10 +119,8 @@
                         error.insertBefore(element);
                     }
                 },
-                submitHandler: function(form) {
-                    form.submit();
-                }
             });
         });
     </script>
+
 @endsection

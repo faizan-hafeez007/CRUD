@@ -1,4 +1,3 @@
-
 @extends('dashboard')
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -7,18 +6,21 @@
 {{-- create product --}}
 {{-- @include('profile.dashboard') --}}
 <div class="row">
-    <div class="col-md-6 pt-4">
-        <h1>ALL Products</h1>
+    <div class="col-md-6">
+        <h1><a href="/admin/product">ALL Products</a></h1>
         <div class="container">
             @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show auto-hide" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show auto-hide" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             @endif
-
         </div>
-        <div class="col-md-6 pt-4">
+        <div class="row-md-6 d-flex justify-content-between align-items-center">
+            <form method="GET" action="{{ url('/admin/product') }}" class="d-flex position-relative">
+                <input type="text" class="form-control" id="search" name="search" placeholder="Enter text to search" style="width: 300px;">
+                <button type="submit" class="btn btn-primary position-absolute top-0 end-0" style="height: 38px;">Search</button>
+            </form>
             <a href="/admin/product/create" type="button" class="btn btn-info" data-mdb-ripple-init>Create Product</a>
         </div>
     </div>
@@ -41,33 +43,33 @@
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
-                            <tr>
-                                <th scope="row">{{ $product->id }}</th>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td><img src="{{asset('storage/products/'. $product->image) }}" alt="Product Image"
-                                        style="width:50px; height:50px; border-radius: 50%; border: 2px solid #333;">
-                                </td>
+                        <tr>
+                            <th scope="row">{{ $product->id }}</th>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->category->name }}</td>
+                            <td><img src="{{asset('storage/products/'. $product->image) }}" alt="Product Image"
+                                    style="width:50px; height:50px; border-radius: 50%; border: 2px solid #333;">
+                            </td>
 
-                                <td>{{ $product->description }}</td>
-                                <td>
-                                    <div class="d-flex flex-row bd-highlight">
-                                        <a href="{{ url('/admin/product/edit', $product->id) }}">
-                                            <button type="button" class="btn btn-success me-4 ">Edit</button>
-                                        </a>
-                                        <form method="post" action="{{ url('/admin/product/delete', $product->id) }}"
-                                            onsubmit="return confirm('Are you sure you want to delete this product?')">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                            <td>{{ $product->description }}</td>
+                            <td>
+                                <div class="d-flex flex-row bd-highlight">
+                                    <a href="{{ url('/admin/product/edit', $product->id) }}">
+                                        <button type="button" class="btn btn-success me-4 ">Edit</button>
+                                    </a>
+                                    <form method="post" action="{{ url('/admin/product/delete', $product->id) }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
