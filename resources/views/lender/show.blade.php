@@ -109,8 +109,6 @@
                         // Check if there's more than one row before removing
                         if ($('#vehicleTable tbody tr').length > 1) {
                             $('#' + newRowId).remove();
-                        } else {
-                            alert("Cannot delete the only remaining row.");
                         }
                     });
                     newRow.find('td:last').empty().append(deleteButton);
@@ -133,7 +131,21 @@
                 if ($('#vehicleTable tbody tr').length > 1) {
                     $(this).closest('tr').remove();
                 } else {
-                    alert("Cannot delete the only remaining row.");
+                    // Display an error message at the top of the form
+                    var errorMessage = $(
+                        '<div class="alert alert-danger mt-3">Cannot delete the only remaining row.</div>'
+                    );
+                    $('#vehicleForm').prepend(errorMessage);
+                    // Scroll to the error message for better visibility
+                    $('html, body').animate({
+                        scrollTop: errorMessage.offset().top
+                    }, 500);
+                    // Remove the error message after 3 seconds
+                    setTimeout(function() {
+                        errorMessage.fadeOut('slow', function() {
+                            $(this).remove();
+                        });
+                    }, 2000);
                 }
             });
 
