@@ -5,7 +5,7 @@
     {{-- create Category --}}
     <div class="container">
         <div class="row">
-            <div class="col-md-6 pt-4">
+            <div class="col-md-6 pt-4 text-dark">
                 <h1>Category</h1>
             </div>
             <div class="col-md-6 pt-4">
