@@ -34,9 +34,9 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
-                            <th scope="col">quantity</th>
+                            <th scope="col">Quantity</th>
                             <th scope="col">Category</th>
-                            <th scope="col">image</th>
+                            <th scope="col">Image</th>
                             <th scope="col">Description</th>
                             <th scope="col">Actions</th>
                         </tr>
