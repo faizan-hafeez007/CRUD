@@ -31,6 +31,7 @@
         <form id="vehicleForm" action="/admin/car/store" method="POST">
             @csrf
             <input type="hidden" id="vehicleCount" value="{{ $vehicleCount }}">
+            <input type="hidden" class="form-control" name="reg_id" value="{{ $reg_id }}" readonly>
             <table class="table" id="vehicleTable">
                 <thead>
                     <tr>
@@ -47,9 +48,6 @@
                         <td><input type="number" class="form-control value" name="value[]" placeholder="Enter VALUE"
                                 min="1"></td>
                         <td><input type="text" class="form-control lender" name="lender[]" placeholder="Enter Lender">
-                        </td>
-                        <td>
-                            <input type="hidden" class="form-control" name="reg_id" value="{{ $reg_id }}" readonly>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger deleteRow">Delete</button>
