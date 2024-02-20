@@ -13,7 +13,8 @@
                 @csrf
                 <div class="mb-3">
                     <label for="regName" class="form-label">Registration Name</label>
-                    <input type="text" class="form-control" id="regName" name="regName" required>
+                    <input type="text" class="form-control" id="regName" name="regName" required
+                    value="{{ old('regName') }}" placeholder="">
                 </div>
                 <button type="submit" class="btn btn-primary" id="registerButton">Register</button>
             </form>
@@ -26,6 +27,27 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script>
     $(document).ready(function() {
+
+        var regNameInput = $('#regName');
+        
+        // Set initial value from sessionStorage on page load
+        setStoredValue(regNameInput, 'regName');
+        // set the value to the input field
+        function setStoredValue(element, storageKey) {
+            var storedValue = sessionStorage.getItem(storageKey);
+            if (storedValue) {
+                element.val(storedValue);
+            }
+        }
+
+        // store the field value in sessionStorage
+        function storeValue(element, storageKey) {
+            sessionStorage.setItem(storageKey, element.val());
+        }
+        // Listen for changes in the input field and update sessionStorage
+        regNameInput.on('input', function() {
+        storeValue(regNameInput, 'regName');
+        });
         $('#registrationForm').validate({
             rules: {
                 regName: {
