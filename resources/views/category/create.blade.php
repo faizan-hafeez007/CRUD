@@ -5,7 +5,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {{-- create Category form --}}
 <div class="container">
-    <div class="row">
+    <div class="row text-dark">
         <div class="col-md-12 mt-4">
             <h1>Create Category Form</h1>
         </div>

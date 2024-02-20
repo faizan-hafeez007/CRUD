@@ -8,12 +8,12 @@
             }
         </style>
     {{-- create product form --}}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-4 text-light">
+    <div class="container text-dark">
+        <div class="row ">
+            <div class="col-md-12 mt-4 ">
                 <h1>Create Product Form</h1>
             </div>
-            <div class="col-md-12 pt-4 text-light">
+            <div class="col-md-12 pt-4">
                 <form action="/admin/product/store" method="POST" enctype="multipart/form-data" id="myForm"
                     novalidate="novalidate">
                     @csrf
@@ -53,8 +53,6 @@
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control " name="description" id="description">{{ old('description') }}</textarea>
                     </div>
-                    <!-- Add remaining fields here -->
-
                     <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
                 </form>
             </div>

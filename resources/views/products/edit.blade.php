@@ -4,7 +4,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     {{-- create product form --}}
-    <div class="container">
+    <div class="container text-dark">
         <div class="row">
             <div class="col-md-12 pt-4">
                 <div class="container">
@@ -64,7 +64,7 @@
                                     @enderror
                                     <!-- Display the current image -->
                                     @if ($product->image)
-                                        <img src="/products/{{ $product->image }}" alt="Product Image"
+                                        <img src="{{asset('storage/products/'. $product->image) }}" alt="Product Image"
                                             style="width:100px; height:100px;">
                                     @endif
                                 </div>

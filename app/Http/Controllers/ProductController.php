@@ -87,12 +87,14 @@ class ProductController extends Controller
             'description' => 'required|string|max:1000',
         ]);
         $product = Product::find($id);
-        if (isset($request->image)) {
+        // dd($request->all());
 
+        if (isset($request->image)) {
             $image = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('products'), $image);
+            $request->image->storeAs('public/products', $image);
             $product->image = $image;
         }
+
 
         $product->name = $request->name;
         $product->price = $request->price;
