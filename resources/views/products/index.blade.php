@@ -18,8 +18,8 @@
         </div>
         <div class="row-md-6 d-flex justify-content-between align-items-center">
             <form method="GET" action="{{ url('/admin/product') }}" class="d-flex position-relative">
-                <input type="text" class="form-control" id="search" name="search" placeholder="Enter text to search" style="width: 300px;">
-                <button type="submit" class="btn btn-primary position-absolute top-0 end-0" style="height: 38px;">Search</button>
+                <input type="text" class="form-control" id="search" name="search" placeholder="Search" style="width: 420px;">
+                <button type="submit" class="btn btn-primary position-absolute top-0 end-0" style="height: 38px; width:142px; ">Search</button>
             </form>
             <a href="/admin/product/create" type="button" class="btn btn-info" data-mdb-ripple-init>Create Product</a>
         </div>
