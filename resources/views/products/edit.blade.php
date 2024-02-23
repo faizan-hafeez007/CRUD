@@ -1,3 +1,5 @@
+<!--Products edit.blade.php -->
+
 @extends('dashboard')
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -37,8 +39,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="quantity" class="form-label">Quantity</label>
-                                    <input type="number" min="1" class="form-control @error('quantity') is-invalid @enderror"
-                                        name="quantity" id="quantity"value="{{ old('quantity', $product->quantity) }}">
+                                    <input type="number" min="1"
+                                        class="form-control @error('quantity') is-invalid @enderror" name="quantity"
+                                        id="quantity"value="{{ old('quantity', $product->quantity) }}">
                                     @error('quantity')
                                         <div id="quantityError" class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -62,9 +65,8 @@
                                     @error('image')
                                         <div id="imageError" class="alert alert-danger">{{ $message }}</div>
                                     @enderror
-                                    <!-- Display the current image -->
                                     @if ($product->image)
-                                        <img src="{{asset('storage/products/'. $product->image) }}" alt="Product Image"
+                                        <img src="{{ asset('storage/products/' . $product->image) }}" alt="Product Image"
                                             style="width:100px; height:100px;">
                                     @endif
                                 </div>
